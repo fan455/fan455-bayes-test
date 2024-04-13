@@ -6,4 +6,4 @@ The library `fan455_bayes` contains a simplified Rust implementation of Stan NUT
 
 The libraries `fan455_util` and `fan455_util_macro` provide functionalities including: parsing command line arguments (different from the [clap](https://github.com/clap-rs/clap) crate, variables are parsed straight into scope without the need to define a struct); reading and writing numpy's `.npy` files; zipping more than 2 iterators; writing CSV files.
 
-Test examples are in the `examples` folder, which users on 64-bit Windows can directly run. If you are not on 64-bit Windows, you just need to set up a Rust environment to compile the codes on your own.
+Test examples are in the `examples` folder, which users on 64-bit Windows can directly run. Guidance to run the examples are provided [here](./examples/README.md). If you are not on 64-bit Windows, you just need to set up a Rust environment to compile the codes on your own.
