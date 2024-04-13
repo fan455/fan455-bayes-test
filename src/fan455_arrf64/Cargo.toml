@@ -13,7 +13,8 @@ num-complex = "0.4.5"
 num-traits = "0.2.18"
 
 [features]
-default = ["x86-64-windows", "mkl"]
+mkl-win = ["x86-64-windows", "mkl"]
+openblas-win = ["x86-64-windows", "openblas"]
 x86-64-windows = []
 mkl = []
 openblas = []
