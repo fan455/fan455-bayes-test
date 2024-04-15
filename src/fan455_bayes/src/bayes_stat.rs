@@ -33,6 +33,22 @@ pub fn cor_to_cov( cor: &Arr2<f64>, scale: &Arr1<f64> ) -> Arr2<f64> {
 }
 
 
+#[inline]
+pub fn cov_to_cor( cov: &Arr2<f64> ) -> Arr2<f64> {
+    let mut cor = cov.clone();
+    let n = cor.nrow();
+    let mut x = cor.diag();
+    for x_ in x.itm() {
+        *x_ = x_.sqrt().recip();
+    }
+    let mut diag = Arr2::<f64>::new(n, n);
+    diag.set_diag_to_vec(&x);
+    dtrmm!(1., &diag, &mut cor, left);
+    dtrmm!(1., &diag, &mut cor, right);
+    cor
+}
+
+
 #[inline] #[allow(non_snake_case)]
 pub fn infer_by_percent<VT: RVec<f64>>(
     sample: &VT, // Should have been sorted (lower to upper).
@@ -127,11 +143,10 @@ pub fn estimate_percent<VT: RVec<f64>>( x: &VT, x0: f64 ) -> f64 {
     // x: sorted array; x0: value to find percent for.
     let mut p: usize = 0;
     for x_ in x.it() {
-        if *x_ < x0 {
-            p += 1;
-        }
+        if *x_ > x0 {break;}
+        p += 1;
     }
-    (p as f64 + 0.5) / x.size() as f64
+    p as f64 / x.size() as f64
 }
 
 

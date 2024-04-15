@@ -528,6 +528,15 @@ pub trait GMat<T: General>: GVec<T>
     fn it_diag( &self ) -> DiagView<T> {
         DiagView { i: 0, dim: self.nrow(), view: self.sl() }
     }
+
+    #[inline]
+    fn diag( &self ) -> Vec<T> {
+        let mut x: Vec<T> = Vec::with_capacity(self.nrow());
+        for i in 0..self.nrow() {
+            x.push(*self.idx2(i, i));
+        }
+        x
+    }
 }
 
 pub trait GMatMut<T: General>: GMat<T> + GVecMut<T>

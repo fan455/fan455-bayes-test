@@ -32,6 +32,18 @@ impl VecPrinter {
         print!("\n");
     }
 
+    #[inline]
+    pub fn print_string( &self, x: &Vec<String>, name: &str ) 
+    {
+        let name_width = self.name_width;
+        let width = self.width;
+
+        print!("{:<name_width$}:", name);
+        for x_ in x {
+            print!(" {x_:>width$}");
+        }
+        print!("\n");
+    }
 }
 
 pub struct CsvWriter {
@@ -90,6 +102,20 @@ impl CsvWriter {
         let mut s: String = format!("{:<name_width$}, ", name);
         s.push_str(x.iter().map(
             |x| format!("{x:width$.prec$}")
+        ).collect::<Vec<String>>().join(", ").as_str());
+        s.push('\n');
+        self.file.write(&s.into_bytes()[..]).unwrap();
+    }
+
+    #[inline]
+    pub fn write_vec_string( &mut self, x: &Vec<String>, name: &str ) 
+    {
+        let name_width = self.name_width;
+        let width = self.width;
+
+        let mut s: String = format!("{:<name_width$}, ", name);
+        s.push_str(x.iter().map(
+            |x| format!("{x:>width$}")
         ).collect::<Vec<String>>().join(", ").as_str());
         s.push('\n');
         self.file.write(&s.into_bytes()[..]).unwrap();

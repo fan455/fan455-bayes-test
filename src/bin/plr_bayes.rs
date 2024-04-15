@@ -38,18 +38,21 @@ fn main()  {
     cmd_arg!(n_prog_adapt, usize, 10);
     cmd_arg!(n_prog_draw, usize, 10);
 
-    cmd_vec!(params, usize, vec![0]);
+    cmd_vec!(x_index, usize, vec![0]);
+    cmd_vec!(x_name, String, Vec::new());
+    cmd_arg!(y_name, String, "y".to_string());
 
     cmd_arg!(do_infer, bool, true);
     cmd_vec_mut!(H0, f64, vec![0.]);
+    cmd_arg!(infer_data_path, String, "data/data_inference.csv".to_string());
+
     cmd_arg!(print_name_width, usize, 15);
     cmd_arg!(print_width, usize, 12);
     cmd_arg!(print_prec, usize, 4);
     cmd_arg!(csv_name_width, usize, 15);
     cmd_arg!(csv_width, usize, 12);
     cmd_arg!(csv_prec, usize, 4);
-    cmd_arg!(infer_data_path, String, "data/data_inference.csv".to_string());
-
+    
     cmd_arg!(write_sample_data, bool, true);
     cmd_arg!(sample_data_path, String, "data/data_beta.npy".to_string());
 
@@ -82,9 +85,9 @@ fn main()  {
     let duration = timer.elapsed();
     println!("\nTime elapsed: {:.2?}\n", duration);
 
-    let n_param: usize = params.len();
+    let n_param: usize = x_index.len();
     let mut sample = Arr2::<f64>::new(n_sample, n_param);
-    sample.get_rows_as_cols(&buffer, &params);
+    sample.get_rows_as_cols(&buffer, &x_index);
 
     if do_infer {
         if H0 == vec![0.] {
@@ -101,25 +104,28 @@ fn main()  {
             (H0_percent[i], H0_pvalue[i]) = infer_by_percent(&sample.col(i), H0[i]);
         }
         let pr0 = VecPrinter{ name_width: print_name_width, width: print_width, prec: print_prec };
-
-        pr0.print(&params, "parameters");
+        println!("y name: {y_name}");
+        pr0.print(&x_index, "x index");
+        pr0.print_string(&x_name, "x name");
         pr0.print(&posterior_mean, "posterior mean");
         pr0.print(&posterior_var, "posterior var");
         pr0.print(&H0, "H0");
         pr0.print(&H0_percent, "H0 percent");
-        pr0.print(&H0_pvalue, "H0 pvalue");
+        pr0.print(&H0_pvalue, "p-value");
 
         let mut csv = CsvWriter::new(&infer_data_path);
         csv.name_width = csv_name_width;
         csv.width = csv_width;
         csv.prec = csv_prec;
 
-        csv.write_vec(&params, "parameters");
+        csv.write_str(format!("y name: {y_name},\n").as_str());
+        csv.write_vec(&x_index, "x index");
+        csv.write_vec_string(&x_name, "x name");
         csv.write_vec(&posterior_mean, "posterior mean");
         csv.write_vec(&posterior_var, "posterior var");
         csv.write_vec(&H0, "H0");
         csv.write_vec(&H0_percent, "H0 percent");
-        csv.write_vec(&H0_pvalue, "H0 pvalue");
+        csv.write_vec(&H0_pvalue, "p-value");
 
         println!("\nInference data saved to: {infer_data_path}");
     }

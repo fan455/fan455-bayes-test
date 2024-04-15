@@ -92,6 +92,17 @@ impl PlrOls {
         self.get_beta_cov();
     }
 
+    #[inline]  #[allow(non_snake_case)]
+    pub fn estimate_sandwich( &mut self ) {
+        self.get_beta();
+        self.base.get_u();
+        self.get_sigma2();
+        self.get_beta_cov();
+        let mut V = Arr2::<f64>::new(self.base.T, self.base.T);
+        self.get_V(&mut V);
+        self.get_beta_cov_sandwich(&mut V);
+    }
+
     #[inline]
     pub fn get_beta( &mut self ) {
         dsyrk!(1., &self.base.X, 0., &mut self.base.beta_cov, trans); // Get beta_icov = X^T*X
