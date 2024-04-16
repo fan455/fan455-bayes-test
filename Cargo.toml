@@ -11,10 +11,11 @@ description = "Implementation of a Bayes panel linear regression model proposed 
 [dependencies]
 fan455_util = {path="src/fan455_util"}
 fan455_util_macro = {path="src/fan455_util_macro"}
-fan455_arrf64 = {path="src/fan455_arrf64"}
+#fan455_arrf64 = {path="src/fan455_arrf64", features=["mkl-win"]}
+fan455_arrf64 = {path="src/fan455_arrf64", features=["openblas-win"]}
 fan455_arrf64_macro = {path="src/fan455_arrf64_macro"}
-fan455_bayes = {path="src/fan455_bayes"}
-#fan455_bayes = {path="src/fan455_bayes", features=["nuts-enable-msg"]}
+#fan455_bayes = {path="src/fan455_bayes"}
+fan455_bayes = {path="src/fan455_bayes", features=["nuts-enable-msg"]}
 rand = "0.8.5"
 rand_distr = "0.4.3"
 rand_xoshiro = "0.6.0"
@@ -22,15 +23,3 @@ rand_xoshiro = "0.6.0"
 [[bin]]
 name = "plr_bayes"
 path = "src/bin/plr_bayes.rs"
-
-[[bin]]
-name = "plr_bayes_freqs"
-path = "src/bin/plr_bayes_freqs.rs"
-
-[[bin]]
-name = "test_nonnormal"
-path = "src/bin/test_nonnormal.rs"
-
-[[bin]]
-name = "test_invwishart"
-path = "src/bin/test_invwishart.rs"
