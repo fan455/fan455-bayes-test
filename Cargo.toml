@@ -11,8 +11,8 @@ description = "Implementation of a Bayes panel linear regression model proposed 
 [dependencies]
 fan455_util = {path="src/fan455_util"}
 fan455_util_macro = {path="src/fan455_util_macro"}
-#fan455_arrf64 = {path="src/fan455_arrf64", features=["mkl-win"]}
-fan455_arrf64 = {path="src/fan455_arrf64", features=["openblas-win"]}
+fan455_arrf64 = {path="src/fan455_arrf64", features=["mkl-win"]}
+#fan455_arrf64 = {path="src/fan455_arrf64", features=["openblas-win"]}
 fan455_arrf64_macro = {path="src/fan455_arrf64_macro"}
 #fan455_bayes = {path="src/fan455_bayes"}
 fan455_bayes = {path="src/fan455_bayes", features=["nuts-enable-msg"]}
