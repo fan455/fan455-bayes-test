@@ -28,7 +28,7 @@ fn main()  {
     cmd_arg!(gamma, f64, 0.05);
     cmd_arg!(kappa, f64, 0.75);
     cmd_arg!(t0, f64, 10.);
-    cmd_arg!(epsilon_init, f64, 0.1);
+    cmd_arg!(epsilon_init, f64, 1.0);
 
     cmd_arg!(n_warmup, usize, 10000);
     cmd_arg!(n_sample, usize, 10000);
