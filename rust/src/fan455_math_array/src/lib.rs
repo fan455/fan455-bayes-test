@@ -1,0 +1,9 @@
+//mod math_array_optimize;
+mod math_array_func;
+mod math_array_struct;
+//mod math_array_diff;
+
+//pub use math_array_optimize::*;
+pub use math_array_func::*;
+pub use math_array_struct::*;
+//pub use math_array_diff::*;
