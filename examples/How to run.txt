@@ -1,0 +1,17 @@
+This folder provide computation codes of the paper "Autocorrelated Errors in Panel Linear Regression: A New Objective Bayesian Perspective" by Haifan Xie, Yunlang Xie, and Pengyi Yu.
+
+You may:
+
+- Run plr_bayes_freqs_sim.bat to run the Monte-Carlo simulations in the paper. You can edit this file in a text editor to change parameters n_sim (number of simulations), N (number of units) and and u_nonnormal (whether errors follow a non-normal distribution).
+- Run plr_bayes_real_data.bat to run the real data analysis in the paper. After this you can run "plr_plot 1.py" (with a Python environment) to plot the probalitity density functions of the generated Monte-Carlo samples.
+
+Note that:
+
+- The programs may take a bit long to run. On my computer using CPU and one thread, plr_bayes_real_data.bat takes about 5 minutes to run. plr_bayes_freqs_sim.bat takes about 1 hour to run 1000 simulations for N=300.
+
+- The statistical results you will see from these computation code on your computation may slightly differ from those presented in the paper. This is mainly because the Bayesian inference we use rely on Monte-Carlo algorithms which has a random nature, and it is known seeding may vary with different machines. Also, since NUTS takes too many evaluations of the loss function and gradient, the numeric errors may cause the triggering sequence of random seeds to vary.
+
+- The two ".bat" file can only run on 64-bit windows. They trigger contains the compiled Rust program in the "bin" folder. If you want to run on other OS, you need to install Rust, and compile "src/bin/bin_plr_bayes_freqs_sim.rs" and "src/bin/bin_plr_bayes_unbalance.rs" yourself. If you do so, you need to pay attention to: the "Cargo.toml" file where there is a feature flag to control whether to print message when running the NUTS sampler; the ".cargo/config.toml" file which specifies the path of compiled programs; the "src/fan455_arrf64/build.rs" file which specifies the path of an external BLAS library.
+
+
+

@@ -1,5 +1,5 @@
 rem set RUST_BACKTRACE=full
-..\bin\bin_plr_bayes_freqs_sim.exe ^
+D:\self_research\rust_target\fan455_bayes_test\release\bin_plr_bayes_freqs_sim.exe ^
 seed0=1000 ^
 seed=10000 ^
 random_seed=false ^
