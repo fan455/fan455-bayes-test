@@ -10,4 +10,4 @@ The libraries `fan455_util` and `fan455_util_macro` provide functionalities incl
 
 The only parts in the Rust codes of this repository that use `unsafe` are: calling BLAS/LAPACK routines; reading and writing `.npy` files in transmuted ways (reading `.npy` in safe ways instead may be slower due to the overheads of converting each `u8` array in a block of memory into target types like f64). Other parts are guaranteed to be safe-only.
 
-Test examples are in the `examples` folder, which users on 64-bit Windows can directly run. Guidance to run the examples are provided [here](examples/README.md). If you are not on 64-bit Windows or want to compile more native binaries, you just need to set up a Rust environment to compile the codes on your own.
+Test examples are in the `examples` folder, which users on 64-bit Windows can directly run. If you are not on 64-bit Windows or want to compile more native binaries, you just need to set up a Rust environment to compile the codes on your own.
